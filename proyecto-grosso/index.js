@@ -27,6 +27,7 @@ botonLimpiarStorage = document.getElementById("limpiarStorage");
 function inicializarEventos () {
     formularioIdentificacion.onsubmit = (event) => identificarUsuario(event);
     botonLimpiarStorage.onclick = eliminarStorage;
+    botonLimpiarStorage.onclick = mostrarAlert;
 }
 
 function eliminarStorage() {
@@ -44,7 +45,7 @@ function obtenerUsuarioStorage() {
     usuario = usuarioAlmacenado;
     mostrarTextoUsuario();
     }
-  }
+}
 
 function identificarUsuario(event) {
     event.preventDefault();
@@ -58,18 +59,24 @@ function mostrarTextoUsuario() {
     contenedorIdentificacion.hidden = true;
     contenedorUsuario.hidden = false;
     textoUsuario.innerHTML += ` ${usuario}`;
-  }
+}
 
-  function mostrarFormularioIdentificacion() {
+function mostrarFormularioIdentificacion() {
     contenedorIdentificacion.hidden = false;
     contenedorUsuario.hidden = true;
     textoUsuario.innerHTML = ``;
-  }
+}
 
-  inicializarElementos();
-  inicializarEventos();
-  obtenerUsuarioStorage();
+inicializarElementos();
+inicializarEventos();
+obtenerUsuarioStorage();
 
+function mostrarAlert(){
+    Swal.fire({
+        icon: "success",
+        title: "Storage Limpio",
+    })
+}
 //AGREGANDO PRODUCTOS AL CARRITO
 
 const addToShoppingCartButtons = document.querySelectorAll('.addToCart');
@@ -94,6 +101,8 @@ function addToCardClicked (event){
 
 addItemToShoppingCard(itemTitle, itemPrice, itemImage);
 }
+
+
 
 //no duplicar producto en carrito
 function addItemToShoppingCard (itemTitle, itemPrice, itemImage){
@@ -169,6 +178,7 @@ shoppingCartItems.forEach((shoppingCartItem) => {
 function removeShoppingCartItem (event){
     const buttonClicked = event.target;
     buttonClicked.closest('.shoppingCartItem').remove();
+    
 
     actualizadorPrecioCarrito();
 }
