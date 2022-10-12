@@ -45,6 +45,7 @@ function obtenerUsuarioStorage() {
     usuario = usuarioAlmacenado;
     mostrarTextoUsuario();
     }
+    traerPokemon();
 }
 
 function identificarUsuario(event) {
@@ -53,6 +54,7 @@ function identificarUsuario(event) {
     formularioIdentificacion.reset();
     actualizarUsuarioStorage();
     mostrarTextoUsuario();
+    
 }
 
 function mostrarTextoUsuario() {
@@ -77,6 +79,34 @@ function mostrarAlert(){
         title: "Storage Limpio",
     })
 }
+
+//trayendo pokemon mediante fetch
+
+const pokemonContainer = document.querySelector(".pokemon-container");
+
+function traerPokemon() {
+    fetch('https://pokeapi.co/api/v2/pokemon/pikachu/')
+    .then(response => response.json())
+    .then(data => {
+        crearPokemon(data);
+    })
+}
+
+function crearPokemon(pokemon){
+    const img = document.createElement('img');
+    img.src = pokemon.sprites.front_default;
+
+    const h5 = document.createElement('h5');
+    h5.textContent = 'COOL STORE';
+
+    const div = document.createElement('div');
+    div.appendChild(img);
+    div.appendChild(h5);
+
+    pokemonContainer.appendChild(div);
+}
+
+
 //AGREGANDO PRODUCTOS AL CARRITO
 
 const addToShoppingCartButtons = document.querySelectorAll('.addToCart');
